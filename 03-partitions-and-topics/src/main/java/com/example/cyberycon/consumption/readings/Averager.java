@@ -1,7 +1,5 @@
 package com.example.cyberycon.consumption.readings;
 
-import java.util.Date;
-
 import com.example.cyberycon.consumption.calculations.RollingAverage;
 
 import org.slf4j.Logger;
@@ -9,13 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component 
-public class Averager implements ReadingConsumer {
+public class ConsumptionAverager implements ReadingConsumer {
 
-	private final Logger logger = LoggerFactory.getLogger(Averager.class);
+	private final Logger logger = LoggerFactory.getLogger(ConsumptionAverager.class);
 
 	private RollingAverage rollingAverage; 
 	
-	public Averager (RollingAverage rollingAverage) {
+	public ConsumptionAverager(RollingAverage rollingAverage) {
 		this.rollingAverage = rollingAverage; 
 	}
 
@@ -28,7 +26,7 @@ public class Averager implements ReadingConsumer {
 		try {
 			int readingValue = Integer.parseInt(readingParts[2]); 
 			rollingAverage.addValue(readingValue);
-			logger.debug("Latest average" ); 
+			logger.info("Latest average + " + Double.toString(rollingAverage.latestAverage()));
 		}
 		catch (NumberFormatException e) {
 			throw new RuntimeException (e) ; 
