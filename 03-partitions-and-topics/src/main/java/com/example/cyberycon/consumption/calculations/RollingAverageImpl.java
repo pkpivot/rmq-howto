@@ -14,7 +14,7 @@ public class RollingAverageImpl implements RollingAverage {
 
     private Logger logger = LoggerFactory.getLogger(RollingAverageImpl.class); 
 
-    private int window  = 0 ;
+    private int window  = 60 * 1000 ; // Default window of 1 minute
     private final Queue<TimedValue> values = new ArrayDeque<>() ;
     @Override
     public void addValue(int value) {

@@ -9,15 +9,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "meter")
 public class MeterConfiguration {
-    private String area ;
+    private String region;
     private String topic;
 
-    public String getArea() {
-        return area;
+    public String getRegion() {
+        return region;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getTopic() {

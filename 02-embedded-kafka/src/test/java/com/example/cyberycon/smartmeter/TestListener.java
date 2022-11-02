@@ -4,18 +4,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.concurrent.CountDownLatch;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
+import groovy.util.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
 
-@Service
+
+@Component
 public class TestListener {
 
     private CountDownLatch latch ;
 
-    @KafkaListener(topics = "meter.reading")
-    public void listen(ConsumerRecord<String,String> cr) {
-        String[] values = cr.value().split(":");
+    public TestListener() {
+        Logger logger = LoggerFactory.getLogger(TestListener.class);
+        logger.info("Constructing test listener");
+    }
+
+    @RabbitListener(queues = "aggregator")
+    public void listen(String messageContent) {
+        String[] values = messageContent.split(":");
         assertEquals(3, values.length);
         if (latch != null) {
             latch.countDown();

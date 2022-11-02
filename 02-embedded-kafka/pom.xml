@@ -6,49 +6,35 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.4.RELEASE</version>
+    <version>2.7.5</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.example.cyberycon</groupId>
   <artifactId>smart-meter</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>kafka-connectivity</name>
+  <name>RMQ</name>
   <description>Output regular meter readings</description>
 
   <properties>
-    <java.version>8</java.version>
+    <java.version>11</java.version>
   </properties>
+
 
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.kafka</groupId>
-      <artifactId>spring-kafka</artifactId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.springframework.kafka</groupId>
-      <artifactId>spring-kafka-test</artifactId>
+      <groupId>org.springframework.amqp</groupId>
+      <artifactId>spring-rabbit-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.springframework.boot</groupId>
-    	<artifactId>spring-boot-configuration-processor</artifactId>
-    	<optional>true</optional>
     </dependency>
   </dependencies>
 
@@ -60,5 +46,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
