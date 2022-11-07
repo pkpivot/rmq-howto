@@ -1,5 +1,6 @@
 package com.example.cyberycon.consumption.readings;
 
+import com.example.cyberycon.consumption.aspect.LogElapsed;
 import com.example.cyberycon.consumption.calculations.RollingAverage;
 
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ public class ConsumptionAverager implements ReadingConsumer {
 	}
 
 	@Override
+	@LogElapsed
 	public void nextReading(String reading) {
 		String[] readingParts = reading.split(":");
 		if (readingParts.length != 3) {
@@ -30,7 +32,7 @@ public class ConsumptionAverager implements ReadingConsumer {
 		}
 		int consumptionDelta = getReadingDelta(readingParts);
 		rollingAverage.addValue(consumptionDelta);
-		logger.info("Latest average + " + Double.toString(rollingAverage.latestAverage()));
+		logger.info("Latest average = " + rollingAverage.latestAverage());
 	}
 
 	private int getReadingDelta(String[] readingParts) {
@@ -44,9 +46,7 @@ public class ConsumptionAverager implements ReadingConsumer {
 
 	private int delta(String meterId, int thisReading) {
 		int previousReading = 0;
-		if (!previousReadings.containsKey(meterId)) {
-		}
-		else {
+		if (previousReadings.containsKey(meterId)) {
 			previousReading = previousReadings.get(meterId) ;
 		}
 		previousReadings.put(meterId, thisReading) ;
